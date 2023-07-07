@@ -49,5 +49,38 @@ namespace TestProject1
             // Assert
             Assert.AreEqual(2, _taskManager.GetTasks().Count);
         }
+        [Test]
+        public void RemoveTask_NonExistingTask_ShouldNotChangeTaskCount()
+        {
+            // Arrange
+            var task7 = new LAB5.Model.Task("Test task");
+            _taskManager.AddTask(task7);
+            // Act
+            _taskManager.RemoveTask(3);
+            // Assert
+            Assert.AreEqual(1, _taskManager.GetTasks().Count);
+        }
+        [Test]
+        public void MarkTaskAsCompleted_ExistingTask_ShouldMarkTaskAsCompleted()
+        {
+            // Arrange
+            var task8 = new LAB5.Model.Task("Test task");
+            _taskManager.AddTask(task8);
+            // Act
+            _taskManager.MarkTaskAsCompleted(task8.Id);
+            // Assert
+            Assert.IsTrue(task8.IsCompleted);
+        }
+        [Test]
+        public void MarkTaskAsCompleted_NonExistingTask_ShouldNotMarkTaskAsCompleted()
+        {
+            // Arrange
+            var task9 = new LAB5.Model.Task("Test task");
+            _taskManager.AddTask(task9);
+            // Act
+            _taskManager.MarkTaskAsCompleted(7);
+            // Assert
+            Assert.IsFalse(task9.IsCompleted);
+        }
     }
 }
